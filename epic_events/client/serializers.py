@@ -24,7 +24,7 @@ class ClientSerializer(serializers.ModelSerializer):
 class ContractSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
-        fields = ['id', 'client', 'sales_contact', 'date_created', 'date_updated', 'status', 'amount',
+        fields = ['id', 'client', 'sales_contact', 'date_created', 'date_updated', 'is_signed', 'amount',
                   'payment_due']
 
     def validate_sales_contact(self, sales_contact):

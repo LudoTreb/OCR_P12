@@ -20,8 +20,7 @@ class EventPermission(permissions.BasePermission):
             return False
 
     def has_object_permission(self, request, view, obj):
-        # import pdb;
-        # pdb.set_trace()
+
         user = request.user
         if user.is_superuser:
             return True

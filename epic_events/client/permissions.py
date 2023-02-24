@@ -4,12 +4,14 @@ from rest_framework import permissions
 class ClientPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        if request.method == 'DELETE':
-            return False
         user = request.user
-        if user.groups.filter(name='sales').exists():
+        if user.is_superuser:
             return True
-        if user.groups.filter(name__in=['support', 'management']):
+        elif request.method == 'DELETE':
+            return False
+        elif user.groups.filter(name='sales').exists():
+            return True
+        elif user.groups.filter(name__in=['support', 'management']):
             return request.method in permissions.SAFE_METHODS
         else:
             return False
