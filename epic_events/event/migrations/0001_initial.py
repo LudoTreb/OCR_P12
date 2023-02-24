@@ -6,27 +6,50 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('client', '0001_initial'),
+        ("client", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('date_created', models.DateTimeField(auto_now_add=True)),
-                ('date_updated', models.DateTimeField(auto_now=True, null=True)),
-                ('event_status', models.BooleanField(default=False)),
-                ('attendees', models.IntegerField(blank=True, null=True)),
-                ('event_date', models.DateField(blank=True, null=True)),
-                ('notes', models.TextField(blank=True, null=True)),
-                ('contract', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='client.contract')),
-                ('client', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='client.client')),
-                ('support_contact', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ("date_created", models.DateTimeField(auto_now_add=True)),
+                ("date_updated", models.DateTimeField(auto_now=True, null=True)),
+                ("event_status", models.BooleanField(default=False)),
+                ("attendees", models.IntegerField(blank=True, null=True)),
+                ("event_date", models.DateField(blank=True, null=True)),
+                ("notes", models.TextField(blank=True, null=True)),
+                (
+                    "contract",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        primary_key=True,
+                        serialize=False,
+                        to="client.contract",
+                    ),
+                ),
+                (
+                    "client",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="client.client",
+                    ),
+                ),
+                (
+                    "support_contact",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

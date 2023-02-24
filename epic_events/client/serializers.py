@@ -7,8 +7,18 @@ from event.models import Event
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['id', 'first_name', 'last_name', 'email', 'phone', 'mobile', 'company_name', 'date_created',
-                  'date_updated', 'sales_contact']
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "phone",
+            "mobile",
+            "company_name",
+            "date_created",
+            "date_updated",
+            "sales_contact",
+        ]
 
     def validate_sales_contact(self, sales_contact):
         if not sales_contact.groups.filter(name="sales").exists():
@@ -24,8 +34,16 @@ class ClientSerializer(serializers.ModelSerializer):
 class ContractSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contract
-        fields = ['id', 'client', 'sales_contact', 'date_created', 'date_updated', 'is_signed', 'amount',
-                  'payment_due']
+        fields = [
+            "id",
+            "client",
+            "sales_contact",
+            "date_created",
+            "date_updated",
+            "is_signed",
+            "amount",
+            "payment_due",
+        ]
 
     def validate_sales_contact(self, sales_contact):
         if not sales_contact.groups.filter(name="sales").exists():
@@ -34,7 +52,6 @@ class ContractSerializer(serializers.ModelSerializer):
             return sales_contact
 
     def create(self, validated_data):
-
         contract = Contract.objects.create(**validated_data)
         event = Event.objects.create(contract=contract, client=contract.client)
         contract.save()
@@ -42,5 +59,5 @@ class ContractSerializer(serializers.ModelSerializer):
         return contract
 
     def update(self, instance, validated_data):
-        validated_data.pop('client', None)
+        validated_data.pop("client", None)
         return super().update(instance, validated_data)

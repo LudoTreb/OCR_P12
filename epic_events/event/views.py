@@ -10,6 +10,7 @@ class EventViewSet(ModelViewSet):
     """
     API endpoints to create, view, edit or delete an event
     """
+
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticated, EventPermission]

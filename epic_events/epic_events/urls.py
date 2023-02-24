@@ -23,16 +23,16 @@ from employee.views import UserViewSet, GroupViewSet
 from event.views import EventViewSet
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'groups', GroupViewSet)
-router.register(r'clients', ClientViewSet)
-router.register(r'contracts', ContractViewSet)
-router.register(r'events', EventViewSet)
+router.register(r"users", UserViewSet)
+router.register(r"groups", GroupViewSet)
+router.register(r"clients", ClientViewSet)
+router.register(r"contracts", ContractViewSet)
+router.register(r"events", EventViewSet)
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('login/refreshtoken/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("admin/", admin.site.urls),
+    path("", include(router.urls)),
+    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("login/refreshtoken/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

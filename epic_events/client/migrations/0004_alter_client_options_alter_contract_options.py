@@ -4,18 +4,17 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('client', '0003_alter_client_email'),
+        ("client", "0003_alter_client_email"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='client',
-            options={'ordering': ['id']},
+            name="client",
+            options={"ordering": ["id"]},
         ),
         migrations.AlterModelOptions(
-            name='contract',
-            options={'ordering': ['id']},
+            name="contract",
+            options={"ordering": ["id"]},
         ),
     ]

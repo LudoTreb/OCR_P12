@@ -12,18 +12,24 @@ class Client(models.Model):
     company_name = models.CharField(max_length=25)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True, null=True)
-    sales_contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    sales_contact = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
+    )
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
     class Meta:
-        ordering = ['id']
+        ordering = ["id"]
 
 
 class Contract(models.Model):
-    client = models.ForeignKey(to=Client, on_delete=models.SET_NULL, blank=True, null=True)
-    sales_contact = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+    client = models.ForeignKey(
+        to=Client, on_delete=models.SET_NULL, blank=True, null=True
+    )
+    sales_contact = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True
+    )
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True, null=True)
     is_signed = models.BooleanField(default=True)
@@ -34,4 +40,4 @@ class Contract(models.Model):
         return f"Client is: {self.client} with {self.sales_contact}"
 
     class Meta:
-        ordering = ['id']
+        ordering = ["id"]
