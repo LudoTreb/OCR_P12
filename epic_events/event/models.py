@@ -18,3 +18,6 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.client} {self.support_contact}"
+
+    class Meta:
+        ordering = ['-event_date']

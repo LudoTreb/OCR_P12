@@ -17,6 +17,9 @@ class Client(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    class Meta:
+        ordering = ['id']
+
 
 class Contract(models.Model):
     client = models.ForeignKey(to=Client, on_delete=models.SET_NULL, blank=True, null=True)
@@ -29,3 +32,6 @@ class Contract(models.Model):
 
     def __str__(self):
         return f"Client is: {self.client} with {self.sales_contact}"
+
+    class Meta:
+        ordering = ['id']
