@@ -6,14 +6,14 @@ class EventPermission(permissions.BasePermission):
         user = request.user
         if user.is_superuser:
             return True
-        elif request.method == "DELETE":
+
+        if request.method == "DELETE":
             return False
-        elif user.groups.filter(name="sales").exists():
+
+        if user.groups.filter(name__in=["support", "management"]):
             return True
-        elif user.groups.filter(name="management").exists():
+        if user.groups.filter(name__in=["sales", ]):
             return request.method in permissions.SAFE_METHODS
-        elif user.groups.filter(name="support").exists():
-            return request.method in ["GET", "PUT", "PATCH"]
         else:
             return False
 
@@ -21,13 +21,9 @@ class EventPermission(permissions.BasePermission):
         user = request.user
         if user.is_superuser:
             return True
-
-        elif user.groups.filter(name="sales").exists():
-            return request.method in ["GET", "PUT"]
-        elif user.groups.filter(name="management").exists():
+        if user.groups.filter(name__in=["support", "management"]):
+            return True
+        if user.groups.filter(name__in=["sales", "management"]):
             return request.method in permissions.SAFE_METHODS
-        elif user.groups.filter(name="support").exists():
-            if user == obj.support_contact and obj.event_status is True:
-                return request.method in ["GET", "PUT", "PATCH"]
         else:
             return False

@@ -6,6 +6,12 @@ from client.models import Client, Contract
 
 
 class Event(models.Model):
+
+    EVENT_STATUS_CHOICES = (
+        ("TO DO", "To do"),
+        ("IN PROGRESS", "In progress"),
+        ("FINISHED", "Finished")
+    )
     client = models.ForeignKey(
         to=Client, on_delete=models.CASCADE, blank=True, null=True
     )
@@ -14,7 +20,7 @@ class Event(models.Model):
     support_contact = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True
     )
-    event_status = models.BooleanField(default=False)
+    event_status = models.CharField(max_length=25, choices=EVENT_STATUS_CHOICES, default="TO DO")
     attendees = models.IntegerField(blank=True, null=True)
     event_date = models.DateField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)

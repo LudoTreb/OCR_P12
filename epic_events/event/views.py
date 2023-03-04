@@ -1,9 +1,13 @@
+import logging
+
 from rest_framework import permissions
 from rest_framework.viewsets import ModelViewSet
 
 from event.models import Event
 from event.permissions import EventPermission
 from event.serializers import EventSerializer
+
+logger = logging.getLogger('django')
 
 
 class EventViewSet(ModelViewSet):

@@ -78,23 +78,23 @@ WSGI_APPLICATION = "epic_events.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'epic_event_db',
-#         'USER': 'ludo_user',
-#         'PASSWORD': '123456',
-#         'HOST': 'localhost',
-#         'PORT': "",
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'epic_event_db',
+        'USER': 'ludo_user',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': "",
+    }
+}
 
 
 # Password validation
@@ -157,4 +157,30 @@ SIMPLE_JWT = {
     "JWT_SECRET_KEY": SECRET_KEY,
     "JWT_ALGORITHM": "HS256",
     "JWT_AUTH_HEADER_PREFIX": "Bearer",
+}
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': './logs/info.log',
+        },
+    },
+    'formatters': {
+        'simpleRe': {
+            'format': '{levelname} {asctime}: {message}',
+            'style': '{',
+        },
+    },
 }

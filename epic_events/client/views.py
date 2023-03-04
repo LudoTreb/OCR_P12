@@ -1,9 +1,13 @@
+import logging
+
 from rest_framework import permissions
 from rest_framework.viewsets import ModelViewSet
 
 from client.models import Client, Contract
 from client.permissions import ClientPermission, ContractPermission
 from client.serializers import ClientSerializer, ContractSerializer
+
+logger = logging.getLogger('django')
 
 
 class ClientViewSet(ModelViewSet):
