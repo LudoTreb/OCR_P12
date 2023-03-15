@@ -12,7 +12,7 @@ logger = logging.getLogger('django')
 
 class ClientViewSet(ModelViewSet):
     """
-    API endpoints to create, view, edit or delete a client
+    API endpoints to create, view or edit a client
     """
 
     queryset = Client.objects.all()
@@ -22,9 +22,26 @@ class ClientViewSet(ModelViewSet):
 
 class ContractViewSet(ModelViewSet):
     """
-    API endpoints to create, view, edit or delete a contract
+    API endpoints to create, view or edit a contract
     """
 
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     permission_classes = [permissions.IsAuthenticated, ContractPermission]
+
+
+class SelfContractViewset(ModelViewSet):
+    serializer_class = ContractSerializer
+
+    def get_queryset(self):
+        queryset = Contract.objects.all()
+        contract_signed = self.request.query_params.get('is_signed')
+        contract_amount = self.request.query_params.get('amount')
+
+        if contract_amount is not None:
+            queryset = queryset.filter(amount=contract_amount)
+
+        if contract_signed is not None:
+            queryset = queryset.filter(is_signed=contract_signed)
+
+        return queryset
