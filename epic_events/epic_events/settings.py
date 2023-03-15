@@ -166,7 +166,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'INFO',
+            'level': 'ERROR',
             'propagate': True,
         },
     },
@@ -174,7 +174,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': './logs/info.log',
+            'filename': './logs/errors.log',
         },
     },
     'formatters': {
