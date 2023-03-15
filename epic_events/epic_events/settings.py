@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = "django-insecure-!iuuz*dkc0j^t(#u*!w*w%+6+%dn4c-5ebi=i6r#769rucq=xa
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -42,6 +40,7 @@ INSTALLED_APPS = [
     "client",
     "employee",
     "event",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -74,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "epic_events.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -86,16 +84,15 @@ WSGI_APPLICATION = "epic_events.wsgi.application"
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'epic_event_db',
-        'USER': 'ludo_user',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': "",
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "epic_event_db",
+        "USER": "ludo_user",
+        "PASSWORD": "123456",
+        "HOST": "localhost",
+        "PORT": "",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -115,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -126,7 +122,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -159,28 +154,27 @@ SIMPLE_JWT = {
     "JWT_AUTH_HEADER_PREFIX": "Bearer",
 }
 
-
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'ERROR',
-            'propagate': True,
+    "version": 1,
+    "disable_existing_loggers": False,
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": True,
         },
     },
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': './logs/errors.log',
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "./logs/errors.log",
         },
     },
-    'formatters': {
-        'simpleRe': {
-            'format': '{levelname} {asctime}: {message}',
-            'style': '{',
+    "formatters": {
+        "simpleRe": {
+            "format": "{levelname} {asctime}: {message}",
+            "style": "{",
         },
     },
 }

@@ -36,7 +36,11 @@ class ContractPermission(permissions.BasePermission):
 
         if user.groups.filter(name__in=["sales", "management"]):
             return True
-        if user.groups.filter(name__in=["support", ]):
+        if user.groups.filter(
+            name__in=[
+                "support",
+            ]
+        ):
             return request.method in permissions.SAFE_METHODS
         else:
             return False
@@ -47,7 +51,11 @@ class ContractPermission(permissions.BasePermission):
             return True
         if user.groups.filter(name__in=["sales", "management"]):
             return True
-        if user.groups.filter(name__in=["support", ]):
+        if user.groups.filter(
+            name__in=[
+                "support",
+            ]
+        ):
             return request.method in permissions.SAFE_METHODS
         else:
             return False

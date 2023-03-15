@@ -1,13 +1,15 @@
 import logging
 
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions
+from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 
 from client.models import Client, Contract
 from client.permissions import ClientPermission, ContractPermission
 from client.serializers import ClientSerializer, ContractSerializer
 
-logger = logging.getLogger('django')
+logger = logging.getLogger("django")
 
 
 class ClientViewSet(ModelViewSet):
@@ -18,6 +20,12 @@ class ClientViewSet(ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [permissions.IsAuthenticated, ClientPermission]
+    filter_backends = [
+        SearchFilter,
+        DjangoFilterBackend,
+    ]
+    search_field = ["last_name", "email"]
+    filterset_fields = ["last_name", "email"]
 
 
 class ContractViewSet(ModelViewSet):
@@ -28,20 +36,12 @@ class ContractViewSet(ModelViewSet):
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     permission_classes = [permissions.IsAuthenticated, ContractPermission]
-
-
-class SelfContractViewset(ModelViewSet):
-    serializer_class = ContractSerializer
-
-    def get_queryset(self):
-        queryset = Contract.objects.all()
-        contract_signed = self.request.query_params.get('is_signed')
-        contract_amount = self.request.query_params.get('amount')
-
-        if contract_amount is not None:
-            queryset = queryset.filter(amount=contract_amount)
-
-        if contract_signed is not None:
-            queryset = queryset.filter(is_signed=contract_signed)
-
-        return queryset
+    filter_backends = [
+        SearchFilter,
+        DjangoFilterBackend,
+    ]
+    search_field = ["client__last_name", "client__email", "=amount", "=date_created"]
+    filterset_fields = [
+        "is_signed",
+        "amount",
+    ]

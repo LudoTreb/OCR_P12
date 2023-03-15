@@ -12,7 +12,11 @@ class EventPermission(permissions.BasePermission):
 
         if user.groups.filter(name__in=["support", "management"]):
             return True
-        if user.groups.filter(name__in=["sales", ]):
+        if user.groups.filter(
+            name__in=[
+                "sales",
+            ]
+        ):
             return request.method in permissions.SAFE_METHODS
         else:
             return False
